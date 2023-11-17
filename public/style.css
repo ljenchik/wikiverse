@@ -12,3 +12,11 @@ main {
 ul {
     list-style-type: none;
 }
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 10px;
+    align-items: flex-start;
+}
