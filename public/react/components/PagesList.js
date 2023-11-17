@@ -1,16 +1,20 @@
 import React from "react";
-import Page from "./Page";
 
 export default PagesList = ({ pages, setCurrentPage }) => {
     return (
         <>
             {pages.map((page, idx) => {
                 return (
-                    <Page
-                        page={page}
-                        key={idx}
-                        setCurrentPage={setCurrentPage}
-                    />
+                    <>
+                        <h3
+                            key={idx}
+                            onClick={({ target: { innerText } }) =>
+                                setCurrentPage(innerText)
+                            }
+                        >
+                            {page.title}
+                        </h3>
+                    </>
                 );
             })}
         </>
