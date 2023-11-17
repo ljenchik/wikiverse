@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import PagesList from "./PagesList";
 import apiURL from "../api";
 import PageDetails from "./PageDetails";
+import Form from "./Form";
 
 export const App = () => {
     const [pages, setPages] = useState([]);
@@ -33,24 +34,6 @@ export const App = () => {
         setIsAddingArticle(true);
     };
 
-    const handleSubmit = async () => {
-        setIsAddingArticle(false);
-        const response = await fetch(`${apiURL}/wiki`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(newPage),
-        });
-        setPages([...pages, newPage]);
-    };
-
-    const handleFormChange = (event) => {
-        const value = event.target.value;
-        setNewPage({ ...newPage, [event.target.name]: value });
-        console.log(newPage);
-    };
-
     return (
         <main>
             <h1>WikiVerse</h1>
@@ -62,65 +45,12 @@ export const App = () => {
                     setPages={setPages}
                 />
             ) : isAddingArticle ? (
-                <>
-                    <form
-                        className="form-container"
-                        onChange={handleFormChange}
-                    >
-                        <label>
-                            Title:
-                            <input
-                                type="text"
-                                name="title"
-                                value={newPage.title}
-                                onChange={handleFormChange}
-                            />
-                        </label>
-                        <label>
-                            Content:
-                            <input
-                                type="text"
-                                name="content"
-                                value={newPage.content}
-                                onChange={handleFormChange}
-                            />
-                        </label>
-                        <label>
-                            Author:
-                            <input
-                                type="text"
-                                name="name"
-                                value={newPage.name}
-                                onChange={handleFormChange}
-                            />
-                        </label>
-                        <label>
-                            Email:
-                            <input
-                                type="text"
-                                name="email"
-                                value={newPage.email}
-                                onChange={handleFormChange}
-                            />
-                        </label>
-                        <label>
-                            Tags:
-                            <input
-                                type="text"
-                                name="tags"
-                                value={newPage.tags}
-                                onChange={handleFormChange}
-                            />
-                        </label>
-                    </form>
-                    <button
-                        onClick={handleSubmit}
-                        type="submit"
-                        className="submit-button"
-                    >
-                        Submit
-                    </button>
-                </>
+                <Form
+                    newPage={newPage}
+                    setNewPage={setNewPage}
+                    setIsAddingArticle={setIsAddingArticle}
+                    setPages={setPages}
+                />
             ) : (
                 <>
                     <PagesList pages={pages} setCurrentPage={setCurrentPage} />
