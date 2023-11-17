@@ -2,21 +2,20 @@ import React from "react";
 
 export default PagesList = ({ pages, setCurrentPage }) => {
     return (
-        <>
-            {pages.map((page, idx) => {
+        <div>
+            {pages.map((page, index) => {
                 return (
-                    <>
-                        <h3
-                            key={idx}
-                            onClick={({ target: { innerText } }) =>
-                                setCurrentPage(innerText)
-                            }
-                        >
-                            {page.title}
-                        </h3>
-                    </>
+                    <div
+                        className="page"
+                        key={index}
+                        onClick={({ target: { innerText } }) =>
+                            setCurrentPage(innerText)
+                        }
+                    >
+                        {page.title}
+                    </div>
                 );
             })}
-        </>
+        </div>
     );
 };

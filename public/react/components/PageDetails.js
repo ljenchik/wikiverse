@@ -38,34 +38,42 @@ export default PageDetails = ({ page, setCurrentPage, setPages }) => {
 
     if (article) {
         return (
-            <>
-                <div>
-                    <ul>
-                        <li>
-                            <h3>{article.title}</h3>
-                        </li>
-                        <li>
-                            <strong>Author:</strong>
-                            {article.author.name}
-                        </li>
-                        <li>
-                            <strong>Published:</strong>
-                            {dateFormat(article.createdAt, "dd/mm/yyyy")}
-                        </li>
-                        <li>{article.content}</li>
-                        <li>
-                            <strong>Tags:</strong>
-                            {article.tags.map((tag, index) => (
-                                <p key={index}>{tag.name}</p>
-                            ))}
-                        </li>
-                    </ul>
-                    <button onClick={() => handleBackClick()}>
+            <div className="details-container">
+                <ul>
+                    <li>
+                        <h3 style={{ color: "blueviolet" }}>{article.title}</h3>
+                    </li>
+                    <li>
+                        <strong>Author:</strong>
+                        {article.author.name}
+                    </li>
+                    <li>
+                        <strong>Published:</strong>
+                        {dateFormat(article.createdAt, "dd/mm/yyyy")}
+                    </li>
+                    <li>{article.content}</li>
+                    <li>
+                        <strong>Tags:</strong>
+                        {article.tags.map((tag, index) => (
+                            <p key={index}>{tag.name}</p>
+                        ))}
+                    </li>
+                </ul>
+                <div className="buttons-container">
+                    <button
+                        onClick={() => handleBackClick()}
+                        className="back-button"
+                    >
                         Back to Wiki List
                     </button>
-                    <button onClick={() => handleDelete()}>Delete</button>
+                    <button
+                        onClick={() => handleDelete()}
+                        className="delete-button"
+                    >
+                        Delete
+                    </button>
                 </div>
-            </>
+            </div>
         );
     }
 };

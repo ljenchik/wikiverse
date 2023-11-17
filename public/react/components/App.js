@@ -113,7 +113,11 @@ export const App = () => {
                             />
                         </label>
                     </form>
-                    <button onClick={handleSubmit} type="submit">
+                    <button
+                        onClick={handleSubmit}
+                        type="submit"
+                        className="submit-button"
+                    >
                         Submit
                     </button>
                 </>
@@ -121,6 +125,7 @@ export const App = () => {
                 <>
                     <PagesList pages={pages} setCurrentPage={setCurrentPage} />
                     <button
+                        className="create-button"
                         onClick={handleCreatePageClick}
                         setIsAddingArticle={setIsAddingArticle}
                     >
