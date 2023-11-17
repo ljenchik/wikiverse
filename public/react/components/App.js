@@ -35,7 +35,6 @@ export const App = () => {
 
     const handleSubmit = async () => {
         setIsAddingArticle(false);
-        console.log(newPage);
         const response = await fetch(`${apiURL}/wiki`, {
             method: "POST",
             headers: {
@@ -43,8 +42,7 @@ export const App = () => {
             },
             body: JSON.stringify(newPage),
         });
-        const data = await response.json();
-        console.log(data);
+        setPages([...pages, newPage]);
     };
 
     const handleFormChange = (event) => {
@@ -61,64 +59,74 @@ export const App = () => {
                 <PageDetails
                     page={pages.find(({ title }) => title === currentPage)}
                     setCurrentPage={setCurrentPage}
+                    setPages={setPages}
                 />
             ) : isAddingArticle ? (
-                <form className="form-container" onChange={handleFormChange}>
-                    <label>
-                        Title:
-                        <input
-                            type="text"
-                            name="title"
-                            value={newPage.title}
-                            onChange={handleFormChange}
-                        />
-                    </label>
-                    <label>
-                        Content:
-                        <input
-                            type="text"
-                            name="content"
-                            value={newPage.content}
-                            onChange={handleFormChange}
-                        />
-                    </label>
-                    <label>
-                        Author:
-                        <input
-                            type="text"
-                            name="name"
-                            value={newPage.name}
-                            onChange={handleFormChange}
-                        />
-                    </label>
-                    <label>
-                        Email:
-                        <input
-                            type="text"
-                            name="email"
-                            value={newPage.email}
-                            onChange={handleFormChange}
-                        />
-                    </label>
-                    <label>
-                        Tags:
-                        <input
-                            type="text"
-                            name="tags"
-                            value={newPage.tags}
-                            onChange={handleFormChange}
-                        />
-                    </label>
-                </form>
+                <>
+                    <form
+                        className="form-container"
+                        onChange={handleFormChange}
+                    >
+                        <label>
+                            Title:
+                            <input
+                                type="text"
+                                name="title"
+                                value={newPage.title}
+                                onChange={handleFormChange}
+                            />
+                        </label>
+                        <label>
+                            Content:
+                            <input
+                                type="text"
+                                name="content"
+                                value={newPage.content}
+                                onChange={handleFormChange}
+                            />
+                        </label>
+                        <label>
+                            Author:
+                            <input
+                                type="text"
+                                name="name"
+                                value={newPage.name}
+                                onChange={handleFormChange}
+                            />
+                        </label>
+                        <label>
+                            Email:
+                            <input
+                                type="text"
+                                name="email"
+                                value={newPage.email}
+                                onChange={handleFormChange}
+                            />
+                        </label>
+                        <label>
+                            Tags:
+                            <input
+                                type="text"
+                                name="tags"
+                                value={newPage.tags}
+                                onChange={handleFormChange}
+                            />
+                        </label>
+                    </form>
+                    <button onClick={handleSubmit} type="submit">
+                        Submit
+                    </button>
+                </>
             ) : (
-                <PagesList pages={pages} setCurrentPage={setCurrentPage} />
-            )}
-            {isAddingArticle ? (
-                <button onClick={handleSubmit} type="submit">
-                    Submit
-                </button>
-            ) : (
-                <button onClick={handleCreatePageClick}>Create page</button>
+                <>
+                    <PagesList pages={pages} setCurrentPage={setCurrentPage} />
+                    <button
+                        onClick={handleCreatePageClick}
+                        setIsAddingArticle={setIsAddingArticle}
+                    >
+                        Create page
+                    </button>
+                </>
             )}
         </main>
     );

@@ -2,8 +2,7 @@ import apiURL from "../api";
 import dateFormat from "dateformat";
 import React, { useEffect, useState } from "react";
 
-export default PageDetails = ({ page, setCurrentPage }) => {
-    console.log(page);
+export default PageDetails = ({ page, setCurrentPage, setPages }) => {
     const [article, setArticle] = useState();
 
     async function fetchPage() {
@@ -26,6 +25,15 @@ export default PageDetails = ({ page, setCurrentPage }) => {
 
     const handleBackClick = () => {
         setCurrentPage("");
+    };
+
+    const handleDelete = async () => {
+        setCurrentPage("");
+        const response = await fetch(`${apiURL}/wiki/${page.slug}`, {
+            method: "DELETE",
+        });
+        const data = await response.json();
+        setPages(data);
     };
 
     if (article) {
@@ -55,6 +63,7 @@ export default PageDetails = ({ page, setCurrentPage }) => {
                     <button onClick={() => handleBackClick()}>
                         Back to Wiki List
                     </button>
+                    <button onClick={() => handleDelete()}>Delete</button>
                 </div>
             </>
         );
