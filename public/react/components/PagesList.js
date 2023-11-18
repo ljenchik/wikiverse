@@ -2,10 +2,10 @@ import React from "react";
 
 export default PagesList = ({ pages, setCurrentPage }) => {
     return (
-        <div>
+        <div className="pages-container">
             {pages.map((page, index) => {
                 return (
-                    <div
+                    <button
                         className="page"
                         key={index}
                         onClick={({ target: { innerText } }) =>
@@ -13,7 +13,7 @@ export default PagesList = ({ pages, setCurrentPage }) => {
                         }
                     >
                         {page.title}
-                    </div>
+                    </button>
                 );
             })}
         </div>

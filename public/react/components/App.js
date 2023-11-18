@@ -6,6 +6,7 @@ import Form from "./Form";
 
 export const App = () => {
     const [pages, setPages] = useState([]);
+    console.log("Pages: ", pages);
     const [currentPage, setCurrentPage] = useState();
     const [isAddingArticle, setIsAddingArticle] = useState(false);
     const [newPage, setNewPage] = useState({

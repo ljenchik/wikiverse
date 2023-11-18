@@ -26,16 +26,6 @@ h2 {
     margin: 1rem;
 }
 
-.page {
-    font-size: 2rem;
-    margin: 1rem;
-}
-
-.page:hover {
-    cursor: pointer;
-    color: blueviolet;
-}
-
 .create-button,
 .submit-button,
 .back-button,
@@ -100,4 +90,27 @@ ul li {
 
 .buttons-container {
     display: flex;
+}
+
+.pages-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 10px;
+    align-items: flex-start;
+    font-size: 1rem;
+}
+.page {
+    padding: 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    color: rgba(137, 43, 226, 0.642);
+    box-shadow: 3px 3px 2px grey;
+    margin: 5px 0px;
+}
+
+.page:hover {
+    cursor: pointer;
+    color: blueviolet;
+    transform: scale(1.05);
 }
