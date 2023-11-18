@@ -46,7 +46,7 @@ export default FormForSearchAuthor = ({ setUserName, userName }) => {
                     Search
                 </button>
             </div>
-            {isFoundUser ? (
+            {user && user.length > 0 ? (
                 <div className="author-pages-container">
                     <h3>Articles by {userName}</h3>
                     {user[0].pages.map((page, index) => (
