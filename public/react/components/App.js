@@ -43,6 +43,7 @@ export const App = () => {
                     page={pages.find(({ title }) => title === currentPage)}
                     setCurrentPage={setCurrentPage}
                     setPages={setPages}
+                    pages={pages}
                 />
             ) : isAddingArticle ? (
                 <Form

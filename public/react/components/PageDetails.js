@@ -1,7 +1,7 @@
 import apiURL from "../api";
 import dateFormat from "dateformat";
-import { uptime } from "process";
 import React, { useEffect, useState } from "react";
+import FormForUpdate from "./FormForUpdate";
 
 export default PageDetails = ({ page, setCurrentPage, setPages, pages }) => {
     const [article, setArticle] = useState();
@@ -39,18 +39,8 @@ export default PageDetails = ({ page, setCurrentPage, setPages, pages }) => {
         setPages(data);
     };
 
-    const handleUpdate = async (article) => {
-        //setCurrentPage("");
-        // const response = await fetch(`${apiURL}/wiki/${page.slug}`, {
-        //     method: "PUT",
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //     },
-        //     body: JSON.stringify(newPage),
-        // });
-        // const data = await response.json();
-        // console.log(data);
-        setIsUpdatingArticle(!isUpdatingArticle);
+    const handleUpdateClick = () => {
+        setIsUpdatingArticle(true);
     };
 
     const handleUpdateFormChange = (event) => {};
@@ -86,7 +76,7 @@ export default PageDetails = ({ page, setCurrentPage, setPages, pages }) => {
                         Back to Wiki List
                     </button>
                     <button
-                        onClick={() => handleUpdate()}
+                        onClick={() => handleUpdateClick()}
                         className="update-button"
                     >
                         Update
@@ -101,6 +91,12 @@ export default PageDetails = ({ page, setCurrentPage, setPages, pages }) => {
             </div>
         );
     } else if (article && isUpdatingArticle) {
-        return <div>Hello</div>;
+        return (
+            <FormForUpdate
+                setPages={setPages}
+                article={article}
+                pages={pages}
+            />
+        );
     }
 };
