@@ -3,18 +3,28 @@ import PagesList from "./PagesList";
 import apiURL from "../api";
 import PageDetails from "./PageDetails";
 import Form from "./Form";
+import FormForCreateUser from "./FormForCreateUser";
 
 export const App = () => {
     const [pages, setPages] = useState([]);
-    console.log("Pages: ", pages);
+    const [users, setUsers] = useState([]);
+    console.log(users);
+
     const [currentPage, setCurrentPage] = useState();
+
     const [isAddingArticle, setIsAddingArticle] = useState(false);
+    const [isAddingUser, setIsAddingUser] = useState(false);
     const [newPage, setNewPage] = useState({
         title: "",
         content: "",
         name: "",
         email: "",
         tags: "",
+    });
+
+    const [newUser, setNewUser] = useState({
+        name: "",
+        email: "",
     });
 
     async function fetchPages() {
@@ -27,12 +37,26 @@ export const App = () => {
         }
     }
 
+    async function fetchUsers() {
+        try {
+            const response = await fetch(`${apiURL}/users`);
+            const usersData = await response.json();
+            setUsers(usersData);
+        } catch (err) {
+            console.log("Oh no an error! ", err);
+        }
+    }
     useEffect(() => {
         fetchPages();
+        fetchUsers();
     }, []);
 
     const handleCreatePageClick = () => {
         setIsAddingArticle(true);
+    };
+
+    const handleCreteUserClick = () => {
+        setIsAddingUser(true);
     };
 
     return (
@@ -53,16 +77,34 @@ export const App = () => {
                     setIsAddingArticle={setIsAddingArticle}
                     setPages={setPages}
                 />
+            ) : isAddingUser ? (
+                <FormForCreateUser
+                    newUser={newUser}
+                    setNewUser={setNewUser}
+                    setIsAddingUser={setIsAddingUser}
+                    setUsers={setUsers}
+                    users={users}
+                />
             ) : (
                 <>
                     <PagesList pages={pages} setCurrentPage={setCurrentPage} />
-                    <button
-                        className="create-button"
-                        onClick={handleCreatePageClick}
-                        setIsAddingArticle={setIsAddingArticle}
-                    >
-                        Create page
-                    </button>
+                    <div className="buttons-container">
+                        <button
+                            className="create-button"
+                            onClick={handleCreatePageClick}
+                            setIsAddingArticle={setIsAddingArticle}
+                        >
+                            Create page
+                        </button>
+                        <button
+                            className="create-button"
+                            onClick={handleCreteUserClick}
+                            setIsAddingArticle={setIsAddingArticle}
+                            setIsAddingUser={setIsAddingUser}
+                        >
+                            Register user
+                        </button>
+                    </div>
                 </>
             )}
         </main>
