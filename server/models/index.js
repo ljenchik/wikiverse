@@ -72,7 +72,6 @@ const User = sequelize.define("user", {
     email: {
         type: Sequelize.STRING,
         isEmail: true,
-        unique: "isEmail",
         allowNull: false,
     },
 });

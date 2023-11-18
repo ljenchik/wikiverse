@@ -30,6 +30,25 @@ router.get("/:userId", async (req, res, next) => {
     }
 });
 
+// GET /users/name/:name
+router.get("/name/:name", async (req, res, next) => {
+    try {
+        const user = await User.findAll({
+            where: { name: req.params.name },
+            include: [{ model: Page }],
+        });
+
+        if (!user) {
+            res.status(404);
+            next();
+        } else {
+            res.send(user);
+        }
+    } catch (error) {
+        next(error);
+    }
+});
+
 // POST /users
 router.post("/", async (req, res, next) => {
     try {

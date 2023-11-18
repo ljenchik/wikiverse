@@ -4,16 +4,18 @@ import apiURL from "../api";
 import PageDetails from "./PageDetails";
 import Form from "./Form";
 import FormForCreateUser from "./FormForCreateUser";
+import FormForSearchAuthor from "./FormForSearchAuthor";
 
 export const App = () => {
     const [pages, setPages] = useState([]);
     const [users, setUsers] = useState([]);
-    console.log(users);
-
+    const [userName, setUserName] = useState();
+    console.log("User name: ", userName);
     const [currentPage, setCurrentPage] = useState();
 
     const [isAddingArticle, setIsAddingArticle] = useState(false);
     const [isAddingUser, setIsAddingUser] = useState(false);
+
     const [newPage, setNewPage] = useState({
         title: "",
         content: "",
@@ -55,7 +57,7 @@ export const App = () => {
         setIsAddingArticle(true);
     };
 
-    const handleCreteUserClick = () => {
+    const handleCreateUserClick = () => {
         setIsAddingUser(true);
     };
 
@@ -98,13 +100,17 @@ export const App = () => {
                         </button>
                         <button
                             className="create-button"
-                            onClick={handleCreteUserClick}
+                            onClick={handleCreateUserClick}
                             setIsAddingArticle={setIsAddingArticle}
                             setIsAddingUser={setIsAddingUser}
                         >
                             Register user
                         </button>
                     </div>
+                    <FormForSearchAuthor
+                        setUserName={setUserName}
+                        userName={userName}
+                    />
                 </>
             )}
         </main>
