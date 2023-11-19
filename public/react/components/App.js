@@ -5,16 +5,17 @@ import PageDetails from "./PageDetails";
 import Form from "./Form";
 import FormForCreateUser from "./FormForCreateUser";
 import FormForSearchAuthor from "./FormForSearchAuthor";
+import ListOfArticlesByAuthor from "./ListOfArticlesByAuthor";
 
 export const App = () => {
     const [pages, setPages] = useState([]);
     const [users, setUsers] = useState([]);
     const [userName, setUserName] = useState();
-    console.log("User name: ", userName);
     const [currentPage, setCurrentPage] = useState();
 
     const [isAddingArticle, setIsAddingArticle] = useState(false);
     const [isAddingUser, setIsAddingUser] = useState(false);
+    const [foundUser, setFoundUser] = useState();
 
     const [newPage, setNewPage] = useState({
         title: "",
@@ -61,58 +62,67 @@ export const App = () => {
         setIsAddingUser(true);
     };
 
-    return (
-        <main>
-            <h1>WikiVerse</h1>
-            <h2>An interesting 📚</h2>
-            {currentPage ? (
-                <PageDetails
-                    page={pages.find(({ title }) => title === currentPage)}
-                    setCurrentPage={setCurrentPage}
-                    setPages={setPages}
-                    pages={pages}
-                />
-            ) : isAddingArticle ? (
-                <Form
-                    newPage={newPage}
-                    setNewPage={setNewPage}
-                    setIsAddingArticle={setIsAddingArticle}
-                    setPages={setPages}
-                />
-            ) : isAddingUser ? (
-                <FormForCreateUser
-                    newUser={newUser}
-                    setNewUser={setNewUser}
-                    setIsAddingUser={setIsAddingUser}
-                    setUsers={setUsers}
-                    users={users}
-                />
-            ) : (
-                <>
-                    <PagesList pages={pages} setCurrentPage={setCurrentPage} />
-                    <div className="buttons-container">
-                        <button
-                            className="create-button"
-                            onClick={handleCreatePageClick}
-                            setIsAddingArticle={setIsAddingArticle}
-                        >
-                            Create page
-                        </button>
-                        <button
-                            className="create-button"
-                            onClick={handleCreateUserClick}
-                            setIsAddingArticle={setIsAddingArticle}
-                            setIsAddingUser={setIsAddingUser}
-                        >
-                            Register user
-                        </button>
-                    </div>
-                    <FormForSearchAuthor
-                        setUserName={setUserName}
-                        userName={userName}
+    if (pages) {
+        return (
+            <main>
+                <h1>WikiVerse</h1>
+                <h2>An interesting 📚</h2>
+                {currentPage ? (
+                    <PageDetails
+                        page={pages.find(({ title }) => title === currentPage)}
+                        setCurrentPage={setCurrentPage}
+                        setPages={setPages}
+                        pages={pages}
                     />
-                </>
-            )}
-        </main>
-    );
+                ) : isAddingArticle ? (
+                    <Form
+                        newPage={newPage}
+                        setNewPage={setNewPage}
+                        setIsAddingArticle={setIsAddingArticle}
+                        setPages={setPages}
+                        pages={pages}
+                    />
+                ) : isAddingUser ? (
+                    <FormForCreateUser
+                        newUser={newUser}
+                        setNewUser={setNewUser}
+                        setIsAddingUser={setIsAddingUser}
+                        setUsers={setUsers}
+                        users={users}
+                    />
+                ) : foundUser ? (
+                    <ListOfArticlesByAuthor foundUser={foundUser} />
+                ) : (
+                    <>
+                        <PagesList
+                            pages={pages}
+                            setCurrentPage={setCurrentPage}
+                        />
+                        <div className="buttons-container">
+                            <button
+                                className="create-button"
+                                onClick={handleCreatePageClick}
+                                setIsAddingArticle={setIsAddingArticle}
+                            >
+                                Create page
+                            </button>
+                            <button
+                                className="create-button"
+                                onClick={handleCreateUserClick}
+                                setIsAddingArticle={setIsAddingArticle}
+                                setIsAddingUser={setIsAddingUser}
+                            >
+                                Register user
+                            </button>
+                        </div>
+                        <FormForSearchAuthor
+                            setUserName={setUserName}
+                            userName={userName}
+                            setFoundUser={setFoundUser}
+                        />
+                    </>
+                )}
+            </main>
+        );
+    }
 };

@@ -6,6 +6,7 @@ export default Form = ({
     setNewPage,
     setIsAddingArticle,
     setPages,
+    pages,
 }) => {
     const handleSubmit = async () => {
         setIsAddingArticle(false);

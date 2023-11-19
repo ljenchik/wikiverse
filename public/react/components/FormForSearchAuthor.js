@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import apiURL from "../api";
 
-export default FormForSearchAuthor = ({ setUserName, userName }) => {
-    const [user, setUser] = useState();
-    const [isFoundUser, setIsFoundUser] = useState(false);
+export default FormForSearchAuthor = ({
+    setUserName,
+    userName,
+    foundUser,
+    setFoundUser,
+}) => {
     const handleFormChange = (event) => {
         setUserName(event.target.value);
     };
@@ -12,17 +15,11 @@ export default FormForSearchAuthor = ({ setUserName, userName }) => {
         try {
             const response = await fetch(`${apiURL}/users/name/${userName}`);
             const user = await response.json();
-            setIsFoundUser(true);
-            setUser(user);
-            console.log(user);
+            setFoundUser(user);
         } catch (err) {
             console.log("Oh no an error! ", err);
         }
     }
-
-    useEffect(() => {
-        fetchUser();
-    }, []);
 
     return (
         <>
@@ -46,16 +43,6 @@ export default FormForSearchAuthor = ({ setUserName, userName }) => {
                     Search
                 </button>
             </div>
-            {user && user.length > 0 ? (
-                <div className="author-pages-container">
-                    <h3>Articles by {userName}</h3>
-                    {user[0].pages.map((page, index) => (
-                        <p key={index}>{page.title}</p>
-                    ))}
-                </div>
-            ) : (
-                ""
-            )}
         </>
     );
 };
